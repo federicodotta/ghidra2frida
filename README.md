@@ -22,3 +22,10 @@ In order to be able to use ghidra2frida, you need:
 3.	Download the last release of ghidra2frida: https://github.com/federicodotta/ghidra2frida/releases
 4.	Open Ghidra -> File -> Install Extensions -> Click the "Add extension" button -> Choose ghidra2fridaXX.zip file
 5.	Restart Ghidra
+
+# Build
+
+You can import the project in Eclipse using GhidraDev Eclipse plugin or you can manually build the plugin with gradle (I used gradle 7.1.1) as follows:
+1. enter the project folder
+2. export GHIDRA_INSTALL_DIR=*<PATH_GHIDRA_DIRECTORY>*
+3. gradle
