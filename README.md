@@ -29,3 +29,4 @@ You can import the project in Eclipse using GhidraDev Eclipse plugin or you can 
 1. enter the project folder
 2. export GHIDRA_INSTALL_DIR=*<PATH_GHIDRA_DIRECTORY>*
 3. gradle
+4. The compiled plugin is in the *dist* forlder
