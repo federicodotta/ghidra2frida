@@ -9,7 +9,7 @@ Some examples:
 2. Write a Ghidra analyzer that analyze a binary using also dynamic information obtained through Frida during one or more run of the binary itself
 3. Decrypt encrypted portion of a binary (strings, etc.) calling the decryption function used by the target binary runing on target platform
 
-A **tutorial** of the tool can be found in [our company blog](https://security.humanativaspa.it/ghidra2frida-the…ghidra-and-frida/).
+A **tutorial** of the tool can be found in [our company blog](https://security.humanativaspa.it/ghidra2frida-the-new-bridge-between-ghidra-and-frida/).
 
 # Requirements
 In order to be able to use ghidra2frida, you need:
