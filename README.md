@@ -1,4 +1,10 @@
 # ghidra2frida
+[![](https://img.shields.io/github/stars/federicodotta/ghidra2frida.svg?color=yellow)](https://github.com/federicodotta/ghidra2frida)
+[![](https://img.shields.io/github/forks/federicodotta/ghidra2frida.svg?color=green)](https://github.com/federicodotta/ghidra2frida)
+[![](https://img.shields.io/github/issues-raw/federicodotta/ghidra2frida.svg?color=red)](https://github.com/federicodotta/ghidra2frida/issues)
+[![](https://img.shields.io/badge/license-MIT%20License-red.svg?color=lightgray)](https://opensource.org/licenses/MIT) 
+[![](https://img.shields.io/badge/twitter-apps3c-blue.svg)](https://twitter.com/apps3c)
+
 ghidra2frida is a Ghidra Extension that, working as a bridge between [Ghidra](https://ghidra-sre.org/) and [Frida](https://www.frida.re/), lets you create powerful Ghidra scripts that take advantage of Frida's dynamic analysis engine to improve Ghidra statical analysis features. It supports all platforms supported by Frida (Windows, macOS, Linux, iOS, Android, and QNX).
 
 The plugin is based on [Brida](https://github.com/federicodotta/Brida) idea (and code). ghidra2frida itself is a extension that adds to Ghidra a control panel with all the instruments necessary to create the bridge between Ghidra and Frida. When the bridge is up, a service is offered to Ghidra scripts and extensions that with a couple of lines of code can use dynamical instrumentation powerful features of Frida for everything you need.
