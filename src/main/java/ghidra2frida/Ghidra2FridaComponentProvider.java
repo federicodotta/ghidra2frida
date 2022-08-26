@@ -61,9 +61,11 @@ public class Ghidra2FridaComponentProvider extends ComponentProviderAdapter {
 	private JTextField pyroPort;
 	private JTextField fridaPath;
 	private JTextField applicationId;
+	private JTextField specifiedRemoteHost;
 	private JCheckBox useVirtualEnvCheckBox;
 	private JLabel labelPythonPathVenv;
 	private JRadioButton remoteRadioButton;
+	private JRadioButton specifiedRemoteHostRadioButton;
 	private JRadioButton usbRadioButton;
 	private JRadioButton localRadioButton;
 
@@ -265,16 +267,37 @@ public class Ghidra2FridaComponentProvider extends ComponentProviderAdapter {
 		localRemotePanel.setLayout(new BoxLayout(localRemotePanel, BoxLayout.X_AXIS));
 		localRemotePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		remoteRadioButton = new JRadioButton("Frida Remote");
+		specifiedRemoteHostRadioButton = new JRadioButton("Frida Remote (specify host)");
 		usbRadioButton = new JRadioButton("Frida USB");
 		localRadioButton = new JRadioButton("Frida Local");
 		remoteRadioButton.setSelected(true);
 		ButtonGroup localRemoteButtonGroup = new ButtonGroup();
 		localRemoteButtonGroup.add(remoteRadioButton);
+		localRemoteButtonGroup.add(specifiedRemoteHostRadioButton);
 		localRemoteButtonGroup.add(usbRadioButton);
 		localRemoteButtonGroup.add(localRadioButton);
 		localRemotePanel.add(remoteRadioButton);
+		localRemotePanel.add(specifiedRemoteHostRadioButton);
 		localRemotePanel.add(usbRadioButton);
 		localRemotePanel.add(localRadioButton);
+
+
+		JPanel specifiedRemoteHostPanel = new JPanel();
+		specifiedRemoteHostPanel.setLayout(new BoxLayout(specifiedRemoteHostPanel, BoxLayout.X_AXIS));
+		specifiedRemoteHostPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		JLabel labelSpecifiedRemoteHost = new JLabel("Remote Host: ");
+		specifiedRemoteHost = new JTextField(50);
+		specifiedRemoteHost.setText("127.0.0.1:27042");
+		specifiedRemoteHost.setMaximumSize(specifiedRemoteHost.getPreferredSize());
+		specifiedRemoteHostPanel.add(labelSpecifiedRemoteHost);
+		specifiedRemoteHostPanel.add(specifiedRemoteHost);
+
+		specifiedRemoteHostPanel.setVisible(false);
+		//specifiedRemoteHostPanel.setVisible(specifiedRemoteHostRadioButton.selected());
+		specifiedRemoteHostRadioButton.addActionListener(e -> specifiedRemoteHostPanel.setVisible(true));
+		remoteRadioButton.addActionListener(e -> specifiedRemoteHostPanel.setVisible(false));
+		usbRadioButton.addActionListener(e -> specifiedRemoteHostPanel.setVisible(false));
+		localRadioButton.addActionListener(e -> specifiedRemoteHostPanel.setVisible(false));
 		
 		JPanel buttonsServerControlPanel = new JPanel();
 		buttonsServerControlPanel.setLayout(new BoxLayout(buttonsServerControlPanel, BoxLayout.X_AXIS));
@@ -311,25 +334,34 @@ public class Ghidra2FridaComponentProvider extends ComponentProviderAdapter {
 		JButton spawnApplication = new JButton("Spawn");
 		spawnApplication.addActionListener(e -> {
 			String device = "";
+			String host = "";
 			if(remoteRadioButton.isSelected())
 				device = "remote";
+			else if(specifiedRemoteHostRadioButton.isSelected()){
+				device = "specified_remote";
+				host=specifiedRemoteHost.getText();
+				}
 			else if(usbRadioButton.isSelected())
 				device = "usb";
 			else
 				device = "local";
-			if(provider.spawnApplication(true, device, applicationId.getText(), fridaPath.getText()))
+			if(provider.spawnApplication(true, device, applicationId.getText(), fridaPath.getText(),host))
 				changeAction("application", true);
 		});		
 		JButton attachApplication = new JButton("Attach");
 		attachApplication.addActionListener(e -> {
 			String device = "";
+			String host = "";
 			if(remoteRadioButton.isSelected())
 				device = "remote";
+			else if(specifiedRemoteHostRadioButton.isSelected()){
+				device = "specified_remote";
+				host=specifiedRemoteHost.getText();}
 			else if(usbRadioButton.isSelected())
 				device = "usb";
 			else
 				device = "local";
-			if(provider.spawnApplication(false, device, applicationId.getText(), fridaPath.getText()))
+			if(provider.spawnApplication(false, device, applicationId.getText(), fridaPath.getText(),host))
 				changeAction("application", true);
 		});	
 		JButton killApplication = new JButton("Kill");
@@ -379,6 +411,7 @@ public class Ghidra2FridaComponentProvider extends ComponentProviderAdapter {
 		confPanel.add(fridaPathPanel);
 		confPanel.add(applicationIdPanel);
 		confPanel.add(localRemotePanel);
+		confPanel.add(specifiedRemoteHostPanel);
 		confPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 		confPanel.add(buttonsServerControlPanel);
 		confPanel.add(buttonsApplicationControlPanel);

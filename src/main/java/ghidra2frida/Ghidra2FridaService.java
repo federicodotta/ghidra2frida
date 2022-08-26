@@ -11,7 +11,7 @@ public interface Ghidra2FridaService {
 	public boolean pingServer();
 	
 	// Application management
-	public boolean spawnApplication(boolean spawn, String device, String applicationId, String fridaPath);
+	public boolean spawnApplication(boolean spawn, String device, String applicationId, String fridaPath, String host);
 	public boolean killOrDetachApplication(boolean kill);
 	public boolean pingApplication();
 	

@@ -503,7 +503,7 @@ public class Ghidra2FridaServiceProvider implements Ghidra2FridaService {
 		
 	}
 	
-	public boolean spawnApplication(boolean spawn, String device, String applicationId, String fridaPath) {
+	public boolean spawnApplication(boolean spawn, String device, String applicationId, String fridaPath, String host) {
 		
 		if(serverStarted) { 
 		
@@ -512,7 +512,7 @@ public class Ghidra2FridaServiceProvider implements Ghidra2FridaService {
 							
 				if(spawn) {
 					
-					executePyroCall("spawn_application",new Object[] {applicationId.trim(), fridaPath.trim(),device});
+					executePyroCall("spawn_application",new Object[] {applicationId.trim(), fridaPath.trim(),device, host});
 					
 					// Wait for 3 seconds in order to load hooks
 					Thread.sleep(500);
@@ -521,7 +521,7 @@ public class Ghidra2FridaServiceProvider implements Ghidra2FridaService {
 					
 				} else {
 					
-					executePyroCall("attach_application",new Object[] {applicationId.trim(), fridaPath.trim(),device});
+					executePyroCall("attach_application",new Object[] {applicationId.trim(), fridaPath.trim(),device, host});
 									
 				}
 				
